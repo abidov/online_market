@@ -34,8 +34,6 @@ class Product(models.Model):
   description = models.TextField('Description')
   category = TreeForeignKey(Category, null=True, blank=True, on_delete=models.CASCADE)
   price = models.FloatField()
-  # size = models
-  # colour = models
   slug = models.SlugField()
 
   def __str__(self):
