@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'shop.apps.ShopConfig',
     'rest_framework',
+    'mptt',
 ]
 
 SITE_ID = 1
