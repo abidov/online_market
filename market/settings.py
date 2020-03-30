@@ -25,12 +25,13 @@ SECRET_KEY = 'y(^z*m+)@dbp@g##4)y-%q0(#=e)5h%9unp@qkj24s2!2ltl%x'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,16 +39,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
-    'shop.apps.ShopConfig',
-    'rest_framework',
+    'products.apps.ProductsConfig',
+    'product_items.apps.ProductItemsConfig',
+    'categories.apps.CategoriesConfig',
+    'carts.apps.CartsConfig',
+    'orders.apps.OrdersConfig',
+    'cart_items.apps.CartItemsConfig',
     'mptt',
 ]
 
-SITE_ID = 1
-
-REST_FRAMEWORK = {
-     'DEFAULT_AUTHENTICATION_CLASSES': ('accounts.backends.JWTAuthentication',),
-}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -109,7 +109,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'accounts.User'
 
 
 # Internationalization
@@ -130,6 +129,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-REST_USE_JWT = True
