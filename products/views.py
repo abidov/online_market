@@ -1,25 +1,18 @@
-from django.shortcuts import render
-from rest_framework import generics
+from rest_framework import viewsets, status
+from rest_framework.decorators import action
+from rest_framework.response import Response
 from .models import Product
 from .serializers import ProductSerializer
 from categories.serializers import CategorySerializer
 
-# Create your views here.
-class ProductListView(generics.ListAPIView):
+
+class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
-class ProductCreateView(generics.CreateAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-
-class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-
-class ProductCategoryListView(generics.ListAPIView):
-    serializer_class = CategorySerializer
-
-    def get_queryset(self):
-        product = Product.objects.get(pk=self.kwargs['pk'])
-        return product.get_all_categories()
+    @action(methods=['GET'], detail=True)
+    def get_categories_of_product(self, request, pk=None):
+        categories = Product.objects.get(pk=pk).get_all_categories()
+        serializer = CategorySerializer(categories, many=True)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+    
